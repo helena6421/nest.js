@@ -7,11 +7,24 @@ const router = express.Router();
 const { v4: uuid } = require('uuid');
 
 class Book {
-    constructor(title = "", description = "", authors = "") {
-        this.id = uuid()
-        this.title = title
-        this.description = description
-        this.authors = authors
+    constructor(
+        title = "", 
+        description = "", 
+        authors = "", 
+        favorite = "", 
+        fileCover = "", 
+        fileName = "",
+        fileBook = "", 
+        count = "") {
+        this.id = uuid();
+        this.title = title;
+        this.description = description;
+        this.authors = authors;
+        this.favorite = favorite;
+        this.fileCover = fileCover;
+        this.fileName = fileName;
+        this.fileBook = fileBook;
+        this.count = count;
     }
 }
 
@@ -20,14 +33,9 @@ const store = {
 };
 
 [1, 2, 3].map(el => {
-    const newBook = new Book(`book ${el}`, `description ${el}`, `authors ${el}`);
+    const newBook = new Book(`title ${el}`, `description ${el}`, `authors ${el}`, `favorite ${el}`, `fileCover ${el}`, `fileName ${el}`, `fileBook ${el}`, `count ${el}`);
     store.books.push(newBook);
 });
-
-// [1, 2, 3].map(el => {
-//     const newBook = new Book(`book ${el}`, `description ${el}`, `authors ${el}`, `favorite ${el}`, `fileCover ${el}`, `fileName ${el}`, `fileBook ${el}`);
-//     store.books.push(newBook);
-// });
 
 router.get('/', (req, res) => {
     const {books} = store;
@@ -46,23 +54,13 @@ router.get('/create', (req, res) => {
 
 router.post('/create', (req, res) => {
     const {books} = store;
-    const {title, description, authors} = req.body;
+    const {title, description, authors, favorite, fileCover, fileName, fileBook, count} = req.body;
 
-    const newBook = new Book(title, description, authors);
+    const newBook = new Book(title, description, authors, favorite, fileCover, fileName, fileBook, count);
     books.push(newBook);
 
     res.redirect('/books')
 });
-
-// router.post('/create', (req, res) => {
-//     const {books} = store;
-//     const {title, description, authors, favorite, fileCover, fileName, fileBook} = req.body;
-
-//     const newBook = new Book(title, description, authors, favorite, fileCover, fileName, fileBook);
-//     books.push(newBook);
-
-//     res.redirect('/books')
-// });
 
 router.get('/:id', (req, res) => {
     const {books} = store;
@@ -98,7 +96,7 @@ router.get('/update/:id', (req, res) => {
 router.post('/update/:id', (req, res) => {
     const {books} = store;
     const {id} = req.params;
-    const {title, description, authors} = req.body;
+    const {title, description, authors, favorite, fileCover, fileName, fileBook, count} = req.body;
     const idx = books.findIndex(el => el.id === id);
 
     if (idx === -1) {
@@ -110,32 +108,14 @@ router.post('/update/:id', (req, res) => {
         title,
         description,
         authors, 
+        favorite, 
+        fileCover, 
+        fileName, 
+        fileBook, 
+        count
     };
     res.redirect(`/books/${id}`);
 });
-
-// router.post('/update/:id', (req, res) => {
-//     const {books} = store;
-//     const {id} = req.params;
-//     const {title, description, authors, favorite, fileCover, fileName, fileBook} = req.body;
-//     const idx = books.findIndex(el => el.id === id);
-
-//     if (idx === -1) {
-//         res.redirect('/404');
-//     } 
-
-//     books[idx] = {
-//         ...books[idx],
-//         title,
-//         description,
-//         authors, 
-//         favorite, 
-//         fileCover, 
-//         fileName, 
-//         fileBook,
-//     };
-//     res.redirect(`/books/${id}`);
-// });
 
 router.post('/delete/:id', (req, res) => {
     const {books} = store;
@@ -149,5 +129,9 @@ router.post('/delete/:id', (req, res) => {
     books.splice(idx, 1);
     res.redirect(`/books`);
 });
+
+
+
+
 
 module.exports = router;

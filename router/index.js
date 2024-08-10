@@ -31,11 +31,11 @@ router.post('/api/books', multer.single('book-file'), (req, res) => {
         fileBook = path;
     }
 
-    const {title, description, authors, favorite, fileCover, fileName} = req.body;
+    const {title, description, authors, favorite, fileCover, fileName, count} = req.body;
 
     console.log(fileBook)
 
-    const newBook = new Book(title, description, authors, favorite, fileCover, fileName, fileBook);
+    const newBook = new Book(title, description, authors, favorite, fileCover, fileName, fileBook, count);
     books.push(newBook)
 
     res.status(201).json(newBook)
@@ -44,7 +44,7 @@ router.post('/api/books', multer.single('book-file'), (req, res) => {
 
 router.put('/api/books/:id', (req, res) => {
     const {books} = store;
-    const {title, description, authors, favorite, fileCover, fileName} = req.body;
+    const {title, description, authors, favorite, fileCover, fileName, fileBook, count} = req.body;
     const {id} = req.params
     const idx = books.findIndex(el => el.id === id)
 
@@ -57,6 +57,8 @@ router.put('/api/books/:id', (req, res) => {
             favorite,
             fileCover,
             fileName,
+            fileBook, 
+            count,
         }
 
         res.json(books[idx])
