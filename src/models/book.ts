@@ -111,31 +111,5 @@ const bookSchema = new Schema<Book>({
     }
 });
 
-// class BookService extends BooksRepository {
-//     createBook(book: Store[]): Promise<Store[]> {
-//         return new Promise<Store[]>(resolve => {
-//             resolve([new Store()])
-//         })
-//     }
-// }
 
 export default model<Book>('Book', bookSchema) as Model<Book>;
-
-export function findIndex(arg0: (el: any) => boolean) {
-    throw new Error("Function not implemented.");
-}
-
-
-export function findById(id: any): any {
-    throw new Error("Function not implemented.");
-}
-
-
-export function findByIdAndUpdate(id: any, arg1: { title: any; description: any; }) {
-    throw new Error("Function not implemented.");
-}
-
-
-export function deleteOne(arg0: { _id: any; }) {
-    throw new Error("Function not implemented.");
-}

@@ -1,12 +1,10 @@
-import { IBook } from "../models/book";
-import Book = require("../models/book");
-import books = require("/Users/mac/git/ejs/routes/books.js")
-import { injectable, inject } from "inversify";
+import bookSchema from "../models/book";
+import { injectable, inject, inversify } from "inversify";
 import "reflect-metadata";
 
-export abstract class BooksRepository{
+export class BooksRepository{
 
-    constructor() {}
+    //constructor() {}
 
     // abstract createBook(Book: IBook): Promise<IBook>;
     // abstract getBook(id: string): Promise<IBook>;
@@ -14,17 +12,17 @@ export abstract class BooksRepository{
     // abstract updatedBook(id: string): Promise<IBook>;
     // abstract deleteBook(id: string): Promise<IBook>;
 
-    async getBooks(req, res) {
-        const {id} = req.params;
-        const books = await Book.findIndex(el => el.id === id);
+    async getBooks() {
+        const books = await library.find()
         const mBooks = []
         for (let book of books) {
             mBooks.push({id: book._id})
         }
+        return books
     }
 
     async createBook(title, description, authors, favorite, fileCover, fileName, fileBook, count) {
-        const book = new Book({
+        const book = new bookSchema({
             title, description, authors, favorite, fileCover, fileName, fileBook, count
         })
         try {
@@ -32,13 +30,13 @@ export abstract class BooksRepository{
         } catch (e) {
             console.error(e);
         }
+        return {'book': book }
     }
 
-    async getBook(id, req, res, next) {
+    async getBook(id) {
         let book
-        //Получим объект книги:
         try {
-            book = await Book.findById(id)
+            book = await bookSchema.findById(id)
         } catch (e) {
             console.error(e)
             res.status(404).redirect('/404')
@@ -47,7 +45,7 @@ export abstract class BooksRepository{
     
     async updateBook(id, title, description) {   
         try {
-            await Book.findByIdAndUpdate(id, {title, description});
+            await bookSchema.findByIdAndUpdate(id, {title, description});
         } catch (e) {
             console.error(e);
         }
@@ -55,9 +53,15 @@ export abstract class BooksRepository{
 
     async deleteBook(id) {
         try {
-            await Book.deleteOne({_id: id});
+            await bookSchema.deleteOne({_id: id});
         } catch (e) {
             console.error(e);
         }
     }
 }
+
+inversify.decorate(inversify.injectable(), BooksRepository)
+const container = new inversify.Container();
+container.bind(BooksRepository).toSelf()
+
+module.exports = {container, BooksRepository}
