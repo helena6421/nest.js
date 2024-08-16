@@ -1,10 +1,10 @@
-const express = require('express');
-const router = express.Router();
+import { Router } from 'express';
+const router = Router();
 
 //const Book = require('../classes/Book')
 //const store = require('../store/index')
 
-const { v4: uuid } = require('uuid');
+import { v4 as uuid } from 'uuid';
 
 class Book {
     constructor(
@@ -33,7 +33,8 @@ const store = {
 };
 
 [1, 2, 3].map(el => {
-    const newBook = new Book(`title ${el}`, `description ${el}`, `authors ${el}`, `favorite ${el}`, `fileCover ${el}`, `fileName ${el}`, `fileBook ${el}`, `count ${el}`);
+    const newBook = new Book(`title ${el}`, `description ${el}`, `authors ${el}`, 
+        `favorite ${el}`, `fileCover ${el}`, `fileName ${el}`, `fileBook ${el}`, `count ${el}`);
     store.books.push(newBook);
 });
 
@@ -134,4 +135,4 @@ router.post('/delete/:id', (req, res) => {
 
 
 
-module.exports = router;
+export default router; Book; store;

@@ -2,14 +2,12 @@ const express = require('express')
 
 const app = express()
 
-const bodyParser = require("body-parser")
-const mongoose = require('mongoose')
+require("body-parser")
+require('mongoose')
 
 const router = require('./router')
 
 const logger = require('./multer/logger')
-const error404 = require('./multer/error-404')
-
 const errorMulter = require('./multer/error-404')
 
 const indexRoutes = require('./routes/index')
@@ -23,13 +21,11 @@ app.use(express.json())
 app.use('/', indexRoutes);
 app.use('/books', booksRoutes);
 
+app.use(logger)
 app.use(errorMulter);
 
 // app.use('/public', express.static(__dirname+'/public'))
 app.use('/api', router)
-
-app.use(logger)
-app.use(error404)
 
 app.use((err, req, res, next) => {
     console.error(err.stack)

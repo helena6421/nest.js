@@ -1,13 +1,13 @@
-const fs = require('fs')
-const os = require('os')
+import { appendFile } from 'fs' // для записи (дозаписи) в файл 
+import { EOL } from 'os'
 
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
     const now = Date.now()
     const {url, method} = req
 
-    const data = `${now} ${method} ${url}`
+    const data = `${now} ${method} ${url}` // основная информация
 
-    fs.appendFile("server.log", data + os.EOL, (err) => {
+    appendFile("server.log", data + EOL, (err) => {  // дозапись
         if (err) throw err;
     })
 

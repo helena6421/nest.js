@@ -1,5 +1,6 @@
 import bookSchema from "../models/book";
 import { injectable, inject, inversify } from "inversify";
+import { Container } from "inversify"
 import "reflect-metadata";
 
 export class BooksRepository{
@@ -62,6 +63,10 @@ export class BooksRepository{
 
 inversify.decorate(inversify.injectable(), BooksRepository)
 const container = new inversify.Container();
+
+//const container = new Container();
 container.bind(BooksRepository).toSelf()
 
 module.exports = {container, BooksRepository}
+
+//module.exports = {BooksRepository}

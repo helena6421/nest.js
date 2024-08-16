@@ -1,13 +1,17 @@
-const express = require('express')
-const router = express.Router()
+// Express - это веб-фреймворк маршрутизации и промежуточной обработки с минимальной собственной функциональностью: 
+// приложение Express, по сути, представляет собой серию вызовов функций промежуточной обработки.
 
-const multer = require('../multer')
 
-const store = require('../store')
-const Book = require('../classes/Book')
+import { Router } from 'express'
+const router = Router()
+
+import { single } from '../multer'
+
+import store, { books as _books } from '../store'
+import Book from '../classes/Book'
 
 router.get('/api/books', (req, res) => {
-    res.status(200).json(store.books)
+    res.status(200).json(_books)
 });
 
 router.get('/api/books/:id', (req, res) => {
@@ -23,7 +27,7 @@ router.get('/api/books/:id', (req, res) => {
 
 });
 
-router.post('/api/books', multer.single('book-file'), (req, res) => {
+router.post('/api/books', single('book-file'), (req, res) => {
     const {books} = store;
     let fileBook = "";
     if(req.file){
@@ -94,4 +98,4 @@ router.get('/api/books/:id/download', (req, res) => {
     
 });
 
-module.exports = router
+export default router

@@ -60,17 +60,17 @@ interface Book extends IBook, Document{
     count: number,
 }
 
-class Store {
-    id = 1;
-    title = "Harry Potter";
-    description = "A film series about Harry Potter";
-    authors = "J. K. Rowling";
-    favorite = "true";
-    fileCover = "Hard cover";
-    fileName = "Harry Potter";
-    fileBook = "Harry Potter";
-    count = 5000;
-}
+// class Store {
+//     id = 1;
+//     title = "Harry Potter";
+//     description = "A film series about Harry Potter";
+//     authors = "J. K. Rowling";
+//     favorite = "true";
+//     fileCover = "Hard cover";
+//     fileName = "Harry Potter";
+//     fileBook = "Harry Potter";
+//     count = 5000;
+// }
 
 const bookSchema = new Schema<Book>({
     id: {

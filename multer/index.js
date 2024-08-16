@@ -1,12 +1,18 @@
-const multer = require('multer')
+// Multer — это middleware для фреймворка express для обработки multipart/form-data, 
+// нужная в первую очередь при загрузке файлов.
 
-const storage = multer.diskStorage({
+// -- Конфигурация multer (middleware)
+// Используем это в router/index.js
+
+import multer, { diskStorage } from 'multer'
+
+const storage = diskStorage({
     destination(req, file, cb){
-        cb(null, 'public/books')
+        cb(null, 'public/books') //callback ф-я
     },
-    filename(req, file, cb) {
+    filename(req, file, cb) { // как мы будем называть наши файлы в папке public/books
         cb(null, `${Date.now()}-${file.originalname}`)
     }
 })
 
-module.exports = multer({storage})
+export default multer({storage})
