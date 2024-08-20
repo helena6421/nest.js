@@ -16,3 +16,5 @@ module.exports = ((req, res) => {
         title: '404 | страница не найдена'
     })
 })
+
+export default module.exports

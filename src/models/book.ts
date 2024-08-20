@@ -1,4 +1,5 @@
-import { Schema, model, Document, Model } from 'mongoose';
+import mongoose = require("mongoose");
+const {Schema, SchemaTypes} = mongoose;
 
 export class IBook {
     id: number;
@@ -9,7 +10,6 @@ export class IBook {
     fileCover: string;
     fileName: string;
     fileBook: string;
-    count: number;
 
     constructor(
         id: number,
@@ -19,8 +19,7 @@ export class IBook {
         favorite: string, 
         fileCover: string, 
         fileName: string,
-        fileBook: string,
-        count: number,) 
+        fileBook: string,) 
     {
         this.id = id;
         this.title = title;
@@ -30,7 +29,6 @@ export class IBook {
         this.fileCover = fileCover;
         this.fileName = fileName;
         this.fileBook = fileBook;
-        this.count = count;
     }
 }
 
@@ -44,11 +42,10 @@ interface store {
         fileCover: string,
         fileName: string,
         fileBook: string,
-        count: number,
     ]
 }
 
-interface Book extends IBook, Document{
+interface Book extends IBook, store{
     id: number,
     title: string,
     description: string,
@@ -57,59 +54,42 @@ interface Book extends IBook, Document{
     fileCover: string,
     fileName: string,
     fileBook: string,
-    count: number,
 }
 
-// class Store {
-//     id = 1;
-//     title = "Harry Potter";
-//     description = "A film series about Harry Potter";
-//     authors = "J. K. Rowling";
-//     favorite = "true";
-//     fileCover = "Hard cover";
-//     fileName = "Harry Potter";
-//     fileBook = "Harry Potter";
-//     count = 5000;
-// }
-
-const bookSchema = new Schema<Book>({
+const bookSchema = new Schema({
     id: {
-        type: Number,
+        type: SchemaTypes.Number,
         required: true,
     },
     title: {
-        type: String,
+        type: SchemaTypes.String,
         required: true,
     },
     description: {
-        type: String,
+        type: SchemaTypes.String,
         required: true,
     },
     authors: {
-        type: String,
+        type: SchemaTypes.String,
         required: false,
     },
     favorite: {
-        type: String,
+        type: SchemaTypes.String,
         required: false,
     },
     fileCover: {
-        type: String,
+        type: SchemaTypes.String,
         required: false,
     },
     fileName: {
-        type: String,
+        type: SchemaTypes.String,
         required: false,
     },
     fileBook: {
-        type: String,
-        required: false,
-    },
-    count: {
-        type: Number,
+        type: SchemaTypes.String,
         required: false,
     }
 });
 
-
-export default model<Book>('Book', bookSchema) as Model<Book>;
+const Book = mongoose.model("Book", bookSchema);
+module.exports = { Book }

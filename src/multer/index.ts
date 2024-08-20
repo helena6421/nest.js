@@ -4,7 +4,7 @@
 // -- Конфигурация multer (middleware)
 // Используем это в router/index.js
 
-import multer, { diskStorage } from 'multer'
+import multer, { Multer, diskStorage } from 'multer'
 
 const storage = diskStorage({
     destination(req, file, cb){

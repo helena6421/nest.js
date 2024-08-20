@@ -1,19 +1,19 @@
-const express = require('express')
+import express = require('express')
 
 const app = express()
 
 require("body-parser")
 require('mongoose')
 
-const router = require('./router')
+import router = require('src/router/index')
 
-const logger = require('./multer/logger')
-const errorMulter = require('./multer/error-404')
+import logger = require('./multer/logger')
+import errorMulter = require('./multer/error-404')
 
-const indexRoutes = require('./routes/index')
-const booksRoutes = require('./routes/books')
+import indexRoutes = require('./routes/index')
+import booksRoutes = require('./routes/books')
 
-app.use(express.urlencoded());
+app.use(express.urlencoded( {extended: false}));
 app.set("view engine", "ejs");
 
 app.use(express.json())
