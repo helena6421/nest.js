@@ -7,10 +7,10 @@
 import multer, { Multer, diskStorage } from 'multer'
 
 const storage = diskStorage({
-    destination(req, file, cb){
+    destination(cb){
         cb(null, 'public/books') //callback ф-я
     },
-    filename(req, file, cb) { // как мы будем называть наши файлы в папке public/books
+    filename(file, cb) { // как мы будем называть наши файлы в папке public/books
         cb(null, `${Date.now()}-${file.originalname}`)
     }
 })

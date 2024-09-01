@@ -1,6 +1,6 @@
 import { Router } from 'express'
 const router  =  Router()
-import 'multer/index.ts'
+import './multer/index.js'
 import 'console'
 import { container } from './books-repository'
 import { BooksRepository } from './books-repository'

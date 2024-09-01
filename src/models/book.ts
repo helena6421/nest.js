@@ -1,7 +1,7 @@
-import mongoose = require("mongoose");
+import mongoose = require('mongoose');
 const {Schema, SchemaTypes} = mongoose;
 
-export class IBook {
+class IBook {
     id: number;
     title: string;
     description: string;
@@ -92,4 +92,4 @@ const bookSchema = new Schema({
 });
 
 const Book = mongoose.model("Book", bookSchema);
-module.exports = { Book }
+export { Book }

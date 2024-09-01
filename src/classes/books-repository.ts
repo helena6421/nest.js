@@ -1,6 +1,8 @@
 const Book = require("../models/book")
-import { Container, injectable, decorate } from "inversify";
-import "reflect-metadata";
+const Container = require ('inversify')
+const injectable = require ('inversify')
+const decorate = require ('inversify')
+require ("reflect-metadata");
 
 export class BooksRepository{
 
@@ -34,7 +36,7 @@ export class BooksRepository{
             book = await Book.findById(id)
         } catch (e) {
             console.error(e)
-            res.status(404).redirect('/404')
+            //res.status(404).redirect('/404')
         }
     }
     
@@ -62,4 +64,4 @@ const container = new Container();
 
 container.bind(BooksRepository).toSelf().inSingletonScope(); // кеш
 
-module.exports = {container, BooksRepository}
+export {container}

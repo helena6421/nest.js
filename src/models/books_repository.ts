@@ -1,15 +1,15 @@
-// -- абстрактный клас; в проекте не используется;
+// -- абстрактный класс; 
 
-import { IBook } from "./book";
+import { Book } from "./book";
 
-abstract class BooksRepository{
+export abstract class BooksRepository{
 
     constructor() {}
 
-    abstract createBook(Book: IBook): Promise<IBook>;
-    abstract getBook(id: string): Promise<IBook>;
-    abstract getBooks(): Promise<IBook[]>;
-    abstract updatedBook(id: string): Promise<IBook>;
-    abstract deleteBook(id: string): Promise<IBook>;
+    abstract createBook(Book: Book): Promise<Book>;
+    abstract getBook(id: string): Promise<Book>;
+    abstract getBooks(): Promise<Book[]>;
+    abstract updatedBook(id: string): Promise<Book>;
+    abstract deleteBook(id: string): Promise<Book>;
 
 }

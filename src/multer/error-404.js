@@ -9,7 +9,7 @@
 // -- Промежуточный обработчик для выведения ошибки 404
 
 
-module.exports = ((req, res) => {
+module.exports = ((res) => {
     // res.status(404)
     // res.json('404 | страница не найдена')
     res.render('errors/404', {
